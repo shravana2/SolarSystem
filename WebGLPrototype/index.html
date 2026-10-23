@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090d18">
+  <title>Orbit — Solar System Explorer (WebGL)</title>
+  <link rel="stylesheet" href="styles.css?v=webgl7">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Orbit home"><span class="brand-mark">◉</span><span>ORBIT<span class="brand-sub"> / SOLAR SYSTEM EXPLORER</span></span></a>
+      <div class="top-meta"><span class="live-dot"></span> INTERACTIVE MODEL <span class="meta-divider">·</span> DESKTOP PREVIEW</div>
+      <button class="icon-button" id="helpButton" title="Help" aria-label="Open help">?</button>
+    </header>
+
+    <section class="workspace">
+      <div class="stage" id="stage">
+        <canvas id="space" aria-label="Interactive solar system. Drag to orbit, Shift or right-drag to pan, scroll to zoom, click a body for details."></canvas>
+        <div class="stage-wash"></div>
+        <div class="stage-heading"><div class="eyebrow">OUR COSMIC NEIGHBORHOOD</div><h1>Explore the <em>Solar System</em></h1><p id="stageInstructions">Drag to orbit <span>·</span> Shift + drag to pan <span>·</span> Scroll to zoom toward pointer</p></div>
+        <div class="scale-note"><span class="scale-icon">↗</span><span><b>Astronomical ratios</b><br>At this scale, some worlds are smaller than a pixel.</span></div>
+        <div class="view-controls"><div class="view-menu"><button id="viewMenuToggle" aria-expanded="false" aria-controls="viewMenu">VIEWS⌄</button><div class="view-menu-options" id="viewMenu" hidden><button id="viewTop">Top view</button><button id="viewOrbital">Orbital lateral view</button><button id="viewScale">Size comparison</button></div></div><span class="view-separator"></span><button id="viewReset" title="Reset view">⌖ <span>RESET</span></button><button id="zoomOut" aria-label="Zoom out">−</button><span id="zoomReadout">100%</span><button id="zoomIn" aria-label="Zoom in">+</button></div>
+        <div class="planet-label" id="planetLabel" hidden></div>
+        <div class="canvas-hint" id="canvasHint">HOVER NEAR A WORLD · SHIFT + DRAG TO PAN</div>
+        <div class="au-legend" id="auLegend"><span class="au-swatch"></span><span>ORBITAL GRID <b>1 AU</b> PER CELL</span></div>
+        <div class="scale-view-note">BODY DIAMETERS TO SCALE <span>·</span> ORBITAL DISTANCES OMITTED</div>
+        <div class="world-pointers" id="worldPointers" aria-label="Planet direction and name markers"></div>
+        <div class="solar-orientation" id="solarOrientation" aria-label="Solar system north and south orientation"><div class="orientation-title">SYSTEM AXIS <b>· ECLIPTIC</b></div><div class="orientation-dial"><span class="orientation-arrow" id="orientationArrow">↑</span><span class="orientation-tag north" id="orientationNorth">N</span><span class="orientation-tag south" id="orientationSouth">S</span></div><div class="orientation-note" id="orientationNote">NORTH / SOUTH</div></div>
+      </div>
+
+      <aside class="sidebar">
+        <section class="panel system-panel">
+          <div class="panel-head"><div><div class="eyebrow">MODEL CONTROLS</div><h2>Your system</h2></div><button class="text-button" id="resetSettings">RESET</button></div>
+          <div class="control-row mode-row"><div><span class="control-title">Simulation speed</span><span class="control-caption" id="modeDescription">Real time</span></div><select id="timeScale" class="time-scale" aria-label="Simulation speed"><option value="1">1×</option><option value="10">10×</option><option value="100">100×</option><option value="1000">1,000×</option><option value="10000">10,000×</option><option value="100000" selected>100,000×</option><option value="1000000">1,000,000×</option></select></div>
+          <div class="control-row pointer-row"><div><span class="control-title">Planet pointers</span><span class="control-caption">Arrows show orbital direction and planet names.</span></div><button class="toggle-button active" id="pointerToggle" aria-pressed="true"><span class="toggle-dot"></span><b>ON</b></button></div>
+          <div class="control-row pointer-row"><div><span class="control-title">Orbital grid</span><span class="control-caption">Reference lines are spaced 1 AU apart.</span></div><button class="toggle-button active" id="gridToggle" aria-label="Toggle orbital grid" aria-pressed="true"><span class="toggle-dot"></span><b>ON</b></button></div>
+          <div class="control-row"><div class="control-title-line"><label for="sunSize">Sun diameter</label><span class="value-pill"><input id="sunSize" type="number" min="20" max="300" step="5" value="100" aria-label="Sun diameter in model centimeters"> <small>cm</small></span></div><input id="sunSizeRange" class="range" type="range" min="20" max="300" step="5" value="100"><div class="range-ends"><span>20 cm</span><span>300 cm</span></div></div>
+          <div class="control-row scale-explanation"><span class="control-title">One shared scale</span><span class="control-caption">Planet sizes and orbital distances use the same Sun-based scale.</span></div>
+          <div class="control-row animation-row"><div><span class="control-title">Planet motion</span><span class="control-caption" id="motionState">Animation is running</span></div><button class="pause-button" id="pauseButton"><span class="pause-symbol">Ⅱ</span><span>Pause</span></button></div>
+          <div class="panel-foot"><span class="foot-icon">i</span> Planet arrows show orbital direction and name; sizes stay to scale.</div>
+        </section>
+
+        <section class="panel info-panel" id="infoPanel">
+          <div class="empty-info" id="emptyInfo"><div class="planet-orbit-icon"><i></i><b></b></div><div class="eyebrow">WORLD PROFILE</div><h3>Choose a planet</h3><p>Select any planet in the model to discover its place in our Solar System.</p></div>
+          <div class="planet-info" id="planetInfo" hidden>
+            <div class="info-top"><div class="planet-badge" id="planetBadge"></div><div class="info-actions"><button class="focus-button" id="focusButton">Zoom to body</button><button class="close-button" id="closeInfo" aria-label="Hide planet information">×</button></div></div>
+            <div class="eyebrow" id="planetType">TERRESTRIAL PLANET</div><h2 id="infoName">Earth</h2><p class="planet-description" id="infoDescription"></p>
+            <div class="stats-grid"><div class="stat"><span>DIAMETER</span><b id="infoDiameter"></b></div><div class="stat"><span>MASS</span><b id="infoMass"></b></div><div class="stat"><span>MEAN DISTANCE</span><b id="infoDistance"></b></div><div class="stat"><span>ORBITAL PERIOD</span><b id="infoOrbit"></b></div><div class="stat"><span>SIDEREAL ROTATION</span><b id="infoRotation"></b></div><div class="stat"><span>CONFIRMED MOONS*</span><b id="infoMoons"></b></div></div>
+            <div class="data-foot">* Counts can change as new moons are confirmed. Values are reference averages.</div>
+          </div>
+        </section>
+        <button class="reposition-button" id="repositionButton"><span>↺</span> Reset model position</button>
+      </aside>
+    </section>
+    <footer class="footer"><span>RELATIVE DISTANCES, SIZES &amp; PERIODS PRESERVED <i>·</i> ZOOM TO EXPLORE</span><span>Planet data: NASA GSFC NSSDCA <i>·</i> <button id="aboutButton">ABOUT THIS MODEL ↗</button></span></footer>
+  </main>
+  <div class="modal-backdrop" id="modal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="close-button modal-close" id="modalClose" aria-label="Close">×</button><div class="eyebrow">A NOTE ON SCALE</div><h2 id="modalTitle">One scale, enormous distances</h2><p>Planet diameters and mean orbital distances use the same scale, set by the Sun diameter. Changing the Sun diameter scales every body and orbit together. At 1×, the animation advances at real-time seconds. Higher speed settings multiply the same clock for orbital motion and axial rotation, preserving each body’s period ratios.</p><p>Enable planet pointers to locate subpixel worlds. Select a world while paused to focus the camera, or use “Zoom to body” in its information card. While paused and focused, drag the selected body to inspect its surface from different angles. Zoom and pan keep the whole model on the same scale; other worlds may move out of view as you approach one.</p><p>In top and lateral views, toggle the orbital grid to compare spacing in 1 AU steps. The labels mark selected distances from the Sun. Size comparison shows diameters only and omits orbital distances.</p><p>Planet and Sun textures: Solar System Scope, <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noreferrer">Solar Textures</a>, licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>. The bundled maps are downsampled for this prototype. See <a href="ASSET_CREDITS.md" target="_blank">asset credits</a>.</p><button class="primary-button" id="modalDone">Got it</button></section></div>
+  <script src="vendor/three.min.js"></script>
+  <script src="app.js?v=solar-orientation-compass-1"></script>
+</body>
+</html>

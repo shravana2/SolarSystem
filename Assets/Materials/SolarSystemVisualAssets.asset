@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d103f35567b4d9aa78833431c63b440, type: 3}
+  m_Name: SolarSystemVisualAssets
+  m_EditorClassIdentifier: 
+  sunMaterial: {fileID: 2100000, guid: 10c391563acbfdb92b148be93ba7ed94, type: 2}
+  orbitMaterial: {fileID: 2100000, guid: f47e7974c959abd25a29cec36e615509, type: 2}
+  saturnRingMaterial: {fileID: 2100000, guid: 8bb99988dbf9f8f20bd337809ad02b2b, type: 2}
+  planetMaterials:
+  - id: 1
+    material: {fileID: 2100000, guid: 696e3c26436a5205e848b7b3ade3057b, type: 2}
+  - id: 2
+    material: {fileID: 2100000, guid: b7e92dad9bf5ca1ea9b57bc5d40def45, type: 2}
+  - id: 3
+    material: {fileID: 2100000, guid: 513d9fa0b3f2d76289f34de64ec52aa1, type: 2}
+  - id: 4
+    material: {fileID: 2100000, guid: a532125f8daab67eea4c9c585e3da4bd, type: 2}
+  - id: 5
+    material: {fileID: 2100000, guid: e674ff631d2b2fc98b470e351b3af30b, type: 2}
+  - id: 6
+    material: {fileID: 2100000, guid: 114ec29338a9a067a923cca7e3332706, type: 2}
+  - id: 7
+    material: {fileID: 2100000, guid: efbdd376d023948b48c973fc3bfb58c3, type: 2}
+  - id: 8
+    material: {fileID: 2100000, guid: 69680c96e92883cf8b5edc1ebbe5d732, type: 2}
