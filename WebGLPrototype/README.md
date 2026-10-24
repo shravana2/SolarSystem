@@ -2,6 +2,8 @@
 
 A standalone browser project built with the bundled Three.js 0.160.0 classic build. The rewrite keeps the existing controls and view menu while using one scene setup and one pointer/zoom path for the available views.
 
+For the mobile WebXR surface placement prototype, see [`../WebARPrototype/README.md`](../WebARPrototype/README.md). It is a separate mobile-first page so this desktop explorer and its classic Three.js build remain unchanged.
+
 ## Run locally
 
 From `WebGLPrototype/`, start a local server:
@@ -14,7 +16,7 @@ Open <http://localhost:8000> in a WebGL capable browser. The project has no CDN 
 
 ## Publish with GitHub Pages
 
-The repository workflow at `.github/workflows/deploy-webgl.yml` publishes this folder whenever changes are pushed to `main` (or when run manually from the Actions tab). In the GitHub repository, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. After the first successful workflow run, the site is available at `https://<owner>.github.io/<repository>/`.
+The repository workflow at `.github/workflows/deploy-webgl.yml` publishes both browser prototypes whenever changes are pushed to `main` (or when run manually from the Actions tab). In the GitHub repository, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. After the first successful workflow run, this site is available at `https://<owner>.github.io/<repository>/` and the WebAR prototype at `https://<owner>.github.io/<repository>/WebARPrototype/`.
 
 ## Controls and features
 

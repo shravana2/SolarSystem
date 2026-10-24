@@ -8,6 +8,11 @@ Open this folder in Unity 2022.3.62f3 and allow Package Manager to resolve `Pack
 
 The project uses Unity's built-in renderer, AR Foundation 5.0.6, and ARCore XR Plugin 5.0.6. See [SETUP.md](SETUP.md) and [BUILD_ANDROID.md](BUILD_ANDROID.md).
 
+## Browser prototypes
+
+- [WebGL prototype](WebGLPrototype/README.md): standalone desktop 3D explorer.
+- [WebAR prototype](WebARPrototype/README.md): mobile browser AR placement with a 3D fallback. Serve the repository over HTTPS to try AR on a supported device.
+
 ## Current verification state
 
 Phases 1–3 passed Unity Editor validation. Phase 4 adds plane-tap anchor placement/repositioning, separately adjustable body diameter and orbit distance scales, persistent settings, and generated controls. Run **Build or Repair Project** and then **Validate Project** after this update to compile and validate the current scene. A physical ARCore-compatible Android phone is still required to verify camera tracking and AR behavior.

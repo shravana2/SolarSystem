@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#070b13">
+  <title>Orbit AR — Solar System</title>
+  <link rel="stylesheet" href="styles.css?v=ar-alpha-3">
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}
+  </script>
+</head>
+<body>
+  <main id="app">
+    <canvas id="scene" aria-label="Interactive 3D solar system"></canvas>
+    <header class="topbar"><a class="brand" href="#">◉ <span>ORBIT <small>AR SOLAR SYSTEM</small></span></a><span id="modeBadge">3D PREVIEW</span></header>
+    <section class="intro" id="intro"><p class="eyebrow">OUR COSMIC NEIGHBORHOOD</p><h1>Explore the<br><em>Solar System</em></h1><p>Place a miniature solar system on your floor or desk.</p><button id="startButton" class="primary" disabled>Preparing 3D scene…</button><button id="previewButton" class="secondary" hidden>Open 3D preview</button><p id="supportMessage" class="support">Loading scene and checking AR support…</p></section>
+    <div class="ar-hint" id="arHint" hidden>Move your phone to find a surface. Tap to place the solar system.</div>
+    <div class="toolbar" id="toolbar" hidden>
+      <select id="bodySelect" aria-label="Choose a planet"><option value="">Choose a world…</option><option value="sun">The Sun</option><option value="mercury">Mercury</option><option value="venus">Venus</option><option value="earth">Earth</option><option value="mars">Mars</option><option value="jupiter">Jupiter</option><option value="saturn">Saturn</option><option value="uranus">Uranus</option><option value="neptune">Neptune</option></select>
+      <select id="speedSelect" aria-label="Simulation speed"><option value="1">1× time</option><option value="100">100×</option><option value="10000">10,000×</option><option value="1000000">1,000,000×</option></select>
+      <button id="resetButton" title="Reset placement">↺ <span>Reset</span></button>
+      <button id="pauseButton" title="Pause animation">Ⅱ <span>Pause</span></button>
+      <label>SIZE <input id="sizeRange" type="range" min="0.15" max="1.5" step="0.05" value="0.6"><output id="sizeValue">0.60 m</output></label>
+      <label class="distance-control">ORBIT SPACING <input id="distanceRange" type="range" min="0.04" max="0.35" step="0.01" value="0.12"><output id="distanceValue">0.12 m/AU</output></label>
+    </div>
+    <aside class="profile" id="profile" hidden><button id="closeProfile" class="close" aria-label="Close planet details">×</button><div id="profileType" class="eyebrow"></div><h2 id="profileName"></h2><p id="profileDescription"></p><dl><div><dt>DIAMETER</dt><dd id="profileDiameter"></dd></div><div><dt>MEAN DISTANCE</dt><dd id="profileDistance"></dd></div><div><dt>ORBITAL PERIOD</dt><dd id="profilePeriod"></dd></div><div><dt>ROTATION</dt><dd id="profileRotation"></dd></div></dl></aside>
+    <div class="status" id="status" role="status">Preparing scene…</div>
+    <div class="legend" id="legend" hidden>Drag to orbit · Scroll to zoom · Tap a planet for details</div>
+  </main>
+  <script type="module" src="app.js?v=ar-alpha-3"></script>
+</body>
+</html>
